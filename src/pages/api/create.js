@@ -5,7 +5,13 @@ const { PrismaClient } = Prisma
 const prisma = new PrismaClient()
 
 
-
 export default async function handler(req, res) {
-  return res.status(200).json({ count: await prisma.account.count() })
+    const result = await prisma.account.create({
+        data: {
+            name: 'Alice',
+            email: 'kk@gmail.com',
+            codigo: '123456789',
+        },
+    })
+    res.json(result)
 }
