@@ -56,11 +56,21 @@ export default function Home() {
       }
     }, []);
 
+    const [data, setData] = React.useState([]);
+
     const getCodes = () => {
       fetch('/api/hello')
         .then((response) => response.json())
-        .then((data) => return data);
+        .then((data) => {
+          setData(data);
+          console.log(data)
+        });
+    
     }
+
+    React.useEffect(() => {
+      getCodes();
+    })
 
 
     return (
@@ -81,7 +91,7 @@ export default function Home() {
                     </TableColumn>
                   )}
                 </TableHeader>
-                <TableBody items={users}>
+                <TableBody items={data}>
                   {(item) => (
                     <TableRow key={item.id}>
                       {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
